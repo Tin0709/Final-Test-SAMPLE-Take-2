@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rock Paper Scissors</title>
+  </head>
+  <body style="font-family: sans-serif">
+    <h1>Rock Paper Scissors</h1>
+
+    <p>Enter your move (R, P, or S):</p>
+    <input type="text" id="moveInput" />
+    <button onclick="sendMove()">Send</button>
+
+    <h2>Messages</h2>
+    <ul id="messages"></ul>
+
+    <script>
+      const socket = new WebSocket("ws://localhost:8080");
+      const messages = document.getElementById("messages");
+
+      socket.onmessage = (event) => {
+        const li = document.createElement("li");
+        li.textContent = event.data;
+        messages.appendChild(li);
+      };
+
+      function sendMove() {
+        const input = document.getElementById("moveInput");
+        const move = input.value.trim().toUpperCase();
+        if (["R", "P", "S"].includes(move)) {
+          socket.send(move);
+          input.value = "";
+        } else {
+          alert("Only R, P, or S allowed.");
+        }
+      }
+    </script>
+  </body>
+</html>
