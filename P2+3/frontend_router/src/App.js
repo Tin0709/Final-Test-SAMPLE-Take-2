@@ -5,9 +5,9 @@ import {
   Route,
   NavLink,
 } from "react-router-dom";
-
 import Home from "./pages/Home";
 import Customers from "./pages/Customers";
+import "./App.css";
 
 function App() {
   return (
@@ -17,28 +17,24 @@ function App() {
           <NavLink
             to="/"
             end
-            style={({ isActive }) => ({
-              padding: "8px",
-              backgroundColor: isActive ? "#ddd" : "#f5f5f5",
-            })}
+            className={({ isActive }) => (isActive ? "active" : undefined)}
           >
             Home
           </NavLink>
           <NavLink
             to="/customers"
-            style={({ isActive }) => ({
-              padding: "8px",
-              backgroundColor: isActive ? "#ddd" : "#f5f5f5",
-            })}
+            className={({ isActive }) => (isActive ? "active" : undefined)}
           >
             Customers
           </NavLink>
         </nav>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/customers/*" element={<Customers />} />
-        </Routes>
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/customers/*" element={<Customers />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );

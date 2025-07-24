@@ -14,7 +14,7 @@ const CustomerDetails = () => {
   if (!customer) return <p>Loading...</p>;
 
   return (
-    <div>
+    <div className="customer-card">
       <h3>Customer Details</h3>
       <p>
         <strong>ID:</strong> {customer.id}
