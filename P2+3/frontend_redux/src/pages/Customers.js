@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Link, useParams } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import CustomerDetails from "../components/CustomerDetails";
+import { useSelector } from "react-redux";
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
+  const favorites = useSelector((state) => state.favorites);
 
   useEffect(() => {
     fetch("http://localhost:3001/customers")
@@ -17,7 +19,12 @@ const Customers = () => {
       <ul>
         {customers.map((customer) => (
           <li key={customer.id}>
-            <Link to={`${customer.id}`}>{customer.name}</Link>
+            <Link
+              to={`${customer.id}`}
+              style={{ fontWeight: favorites[customer.id] ? "bold" : "normal" }}
+            >
+              {customer.name}
+            </Link>
           </li>
         ))}
       </ul>
